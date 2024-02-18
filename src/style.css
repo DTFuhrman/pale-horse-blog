@@ -266,7 +266,7 @@ a:focus {
 }
 
 .frontImage {
-  width: 100%;
+  width: 50%;
   height: auto;
 }
 
@@ -381,5 +381,11 @@ a:focus {
   .splash {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+@media (max-width: 500px) { /* Adjust 600px to the desired screen width */
+  .splash-image {
+    width: 200px; /* Adjust as needed */
   }
 }

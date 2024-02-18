@@ -25,6 +25,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           fields {
             slug
           }
+          frontmatter {
+            author
+            topic
+            tags
+          }
         }
       }
     }
@@ -56,6 +61,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           id: post.id,
           previousPostId,
           nextPostId,
+          author: post.frontmatter.author,
+          topic: post.frontmatter.topic,
+          tags: post.frontmatter.tags,
         },
       })
     })
@@ -104,7 +112,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type Social {
-      twitter: String
+      linkedin: String
     }
 
     type MarkdownRemark implements Node {
@@ -116,6 +124,9 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       description: String
       date: Date @dateformat
+      author: String
+      topic: String
+      tags: [String]
     }
 
     type Fields {

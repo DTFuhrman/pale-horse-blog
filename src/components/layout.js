@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import Navbar from "./navbar"
-import { ThemeContext } from "../context/ThemeContext" // import ThemeContext
+import { ThemeContext } from "../context/ThemeContext"
 
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
