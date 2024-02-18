@@ -9,9 +9,21 @@ const Splash = () => {
 
   return (
     <div className="splash">
-      <Link to="/">
-        <img className="splash-image" src={dark ? darkSplash : lightSplash} alt="Pale Horse" />
-      </Link>
+      <div>
+        <h1 className="main-heading">
+          pale
+        </h1>
+      </div>
+      <div>
+        <Link className="frontImage" to="/">
+          <img className="splash-image" src={dark ? darkSplash : lightSplash} alt="Pale Horse" />
+        </Link>
+      </div>
+      <div>
+        <h1 className="main-heading">
+          horse
+        </h1>
+      </div>
     </div>
   )
 }

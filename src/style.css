@@ -257,22 +257,37 @@ a:focus {
 
 /* Custom classes */
 
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: fixed;
+  padding: var(--spacing-1) var(--spacing-0);
+}
+
+.frontImage {
+  width: 100%;
+  height: auto;
+}
+
 .splash {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   height: 50vh; /* Adjust as needed */
+  padding-bottom: var(--spacing-20);
 }
 
 .splash-image {
   width: 300px; /* Adjust as needed */
-  height: auto;
+  height: 100%; 
 }
 
 .global-wrapper {
   margin: var(--spacing-0) auto;
   max-width: var(--maxWidth-wrapper);
-  padding: var(--spacing-10) var(--spacing-5);
+  padding: var(--spacing-3) var(--spacing-3);
 }
 
 .global-wrapper[data-is-root-path="true"] .bio {
@@ -280,7 +295,7 @@ a:focus {
 }
 
 .global-header {
-  margin-bottom: var(--spacing-12);
+  margin-bottom: var(--spacing-4);
 }
 
 .main-heading {
@@ -318,6 +333,7 @@ a:focus {
 .bio {
   display: flex;
   margin-bottom: var(--spacing-10);
+  padding: var(--spacing-8);
 }
 
 .bio p {
@@ -358,5 +374,12 @@ a:focus {
   ul,
   ol {
     list-style-position: inside;
+  }
+}
+
+@media (max-width: 768px) {
+  .splash {
+    flex-direction: column;
+    align-items: center;
   }
 }

@@ -8,15 +8,10 @@ const Layout = ({ location, title, children }) => {
   const isRootPath = location.pathname === rootPath
   let header
 
-  // use ThemeContext
   const { dark } = React.useContext(ThemeContext)
 
   if (isRootPath) {
-    header = (
-      <h1 className="main-heading">
-        <Link to="/">{title}</Link>
-      </h1>
-    )
+    header = null
   } else {
     header = (
       <Link className="header-link-home" to="/">
