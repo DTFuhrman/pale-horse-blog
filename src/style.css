@@ -265,6 +265,44 @@ a:focus {
   padding: var(--spacing-1) var(--spacing-0);
 }
 
+.nav-list {
+  list-style: none;
+}
+
+.nav-item {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  right: 0;
+  float: right;
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  padding: 1rem;
+  display: none;
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.dropdown-menu.dark {
+  background-color: #333;
+}
+
+.dropdown-menu.light {
+  background-color: #fff;
+}
+
 .frontImage {
   width: 50%;
   height: auto;
