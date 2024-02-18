@@ -257,6 +257,18 @@ a:focus {
 
 /* Custom classes */
 
+.splash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* Adjust as needed */
+}
+
+.splash-image {
+  width: 300px; /* Adjust as needed */
+  height: auto;
+}
+
 .global-wrapper {
   margin: var(--spacing-0) auto;
   max-width: var(--maxWidth-wrapper);
@@ -305,7 +317,7 @@ a:focus {
 
 .bio {
   display: flex;
-  margin-bottom: var(--spacing-16);
+  margin-bottom: var(--spacing-10);
 }
 
 .bio p {

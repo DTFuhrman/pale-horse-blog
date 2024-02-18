@@ -12,7 +12,7 @@ module.exports = {
     title: `pale horse`,
     author: {
       name: `David Fuhrman`,
-      summary: `located in Pittsburgh, who has a background in technology, education, non-profits, and the liberal arts.`,
+      summary: `located in Pittsburgh, who has a background in technology, education, and the liberal arts.`,
     },
     description: `A Gatsby based blog about learning and technology.`,
     siteUrl: `https://pale.horse/`,

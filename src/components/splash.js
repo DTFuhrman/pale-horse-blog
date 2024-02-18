@@ -10,7 +10,7 @@ const Splash = () => {
   return (
     <div className="splash">
       <Link to="/">
-        <img src={dark ? darkSplash : lightSplash} alt="Pale Horse" />
+        <img className="splash-image" src={dark ? darkSplash : lightSplash} alt="Pale Horse" />
       </Link>
     </div>
   )
