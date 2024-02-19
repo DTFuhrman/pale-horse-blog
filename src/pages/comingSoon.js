@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 
-const CalendarPage = () => (
+const ComingSoonPage = () => (
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
     <h1>Coming Soon</h1>
     <p>This page is under construction. Check back for updates soon.</p>
@@ -9,4 +9,4 @@ const CalendarPage = () => (
   </div>
 )
 
-export default CalendarPage
+export default ComingSoonPage

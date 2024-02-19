@@ -11,8 +11,7 @@ const DarkModeToggle = ({ dark, toggleDark }) => (
 )
 
 const DropdownMenu = ({ dark, isMenuOpen }) => {
-  console.log('DropdownMenu dark:', dark)
-
+  
   return (
   <ul className={`dropdown-menu ${dark ? "dark" : "light"} ${isMenuOpen ? "open" : ""}`}>
     <li>
@@ -24,13 +23,15 @@ const DropdownMenu = ({ dark, isMenuOpen }) => {
     <li>
       <Link to="/tags">Tags</Link>
     </li>
+    <li>
+      <Link to="/comingSoon">Coming Soon</Link>
+    </li>
   </ul>
   )
 }
 
 const MenuButton = ({ isMenuOpen, toggleMenuOpen, dark }) => {
-  console.log('MenuButton dark:', dark)
-  
+    
   return (
   <li className="nav-item right">
     <button onClick={toggleMenuOpen}>
@@ -43,7 +44,7 @@ const MenuButton = ({ isMenuOpen, toggleMenuOpen, dark }) => {
 
 const Navbar = () => {
   const { dark, toggleDark } = useContext(ThemeContext)
-  console.log('Navbar dark:', dark) //debugging
+  
   const [isMenuOpen, setMenuOpen] = useState(false)
 
   const toggleMenuOpen = () => setMenuOpen(!isMenuOpen)
