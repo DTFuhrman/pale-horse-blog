@@ -262,7 +262,7 @@ a:focus {
   display: flex;
   justify-content: space-between;
   height: fixed;
-  padding: var(--spacing-1) var(--spacing-0);
+  padding: var(--spacing-3) var(--spacing-3);
 }
 
 .nav-list {
@@ -296,11 +296,22 @@ a:focus {
 }
 
 .dropdown-menu.dark {
-  background-color: #333;
+  background-color: rgb(54, 54, 54);
 }
 
 .dropdown-menu.light {
-  background-color: #fff;
+  background-color: rgb(204, 204, 204);
+}
+
+.dropdown-menu li {
+  font-family: var(--font-body);
+  font-size: var(--fontSize-1);
+  color: var(--color-text);
+  list-style-type: none;
+}
+
+.dropdown-menu li:hover {
+  cursor: pointer;
 }
 
 .frontImage {

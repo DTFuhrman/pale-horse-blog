@@ -5,12 +5,15 @@ import { ThemeContext } from "../context/ThemeContext"
 const DarkModeToggle = ({ dark, toggleDark }) => (
   <li className="nav-item left">
     <button onClick={toggleDark}>
-      Switch to {dark ? "Light" : "Dark"} Mode
+      Go {dark ? "Light" : "Dark"}
     </button>
   </li>
 )
 
-const DropdownMenu = ({ dark, isMenuOpen }) => (
+const DropdownMenu = ({ dark, isMenuOpen }) => {
+  console.log('DropdownMenu dark:', dark)
+
+  return (
   <ul className={`dropdown-menu ${dark ? "dark" : "light"} ${isMenuOpen ? "open" : ""}`}>
     <li>
       <Link to="/calendar">Calendar</Link>
@@ -22,19 +25,25 @@ const DropdownMenu = ({ dark, isMenuOpen }) => (
       <Link to="/tags">Tags</Link>
     </li>
   </ul>
-)
+  )
+}
 
-const MenuButton = ({ isMenuOpen, toggleMenuOpen }) => (
+const MenuButton = ({ isMenuOpen, toggleMenuOpen, dark }) => {
+  console.log('MenuButton dark:', dark)
+  
+  return (
   <li className="nav-item right">
     <button onClick={toggleMenuOpen}>
       {isMenuOpen ? "Close" : "Menu"}
     </button>
-    <DropdownMenu isMenuOpen={isMenuOpen} />
+    <DropdownMenu isMenuOpen={isMenuOpen} dark={dark} />
   </li>
-)
+  )
+}
 
 const Navbar = () => {
   const { dark, toggleDark } = useContext(ThemeContext)
+  console.log('Navbar dark:', dark) //debugging
   const [isMenuOpen, setMenuOpen] = useState(false)
 
   const toggleMenuOpen = () => setMenuOpen(!isMenuOpen)
@@ -47,7 +56,7 @@ const Navbar = () => {
             <DarkModeToggle dark={dark} toggleDark={toggleDark} />
           </li>
           <li className="nav-item right"> 
-          <MenuButton isMenuOpen={isMenuOpen} toggleMenuOpen={toggleMenuOpen} />
+            <MenuButton isMenuOpen={isMenuOpen} toggleMenuOpen={toggleMenuOpen} dark={dark} />
           </li>
         </ul>
       </nav>

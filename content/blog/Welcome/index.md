@@ -3,7 +3,7 @@ title: Welcome Post!
 date: "5050-02-18T00:00:00.121Z"
 ---
 
-Welcome to palehorse.
+Welcome to pale horse.
 
 I am David. 
 I live in Pittsburgh with my girlfriend Tara and my dog Joe.
