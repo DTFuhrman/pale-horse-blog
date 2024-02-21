@@ -10,12 +10,9 @@ import "./src/style.css"
 import "prismjs/themes/prism.css"
 import React from "react"
 import { ThemeProvider } from "./src/context/ThemeContext"
-import { TempoProvider } from "./src/context/TempoContext"
 
 export const wrapRootElement = ({ element }) => (
   <ThemeProvider>
-    <TempoProvider>
       {element}
-    </TempoProvider>
   </ThemeProvider>
 )

@@ -3,8 +3,7 @@ import * as Tone from 'tone'
 import generateNote from './NoteGenerator'
 
 class SoundPlayer {
-    constructor(tempo) {
-        this.tempo = tempo;
+    constructor() {
         this.notes1 = [];
         this.notes2 = [];
         this.notes3 = [];
@@ -24,11 +23,15 @@ class SoundPlayer {
         if (this.notes4.length > 100) this.notes4.shift();
     }
 
-    async playSound() {
+    async playSound(tempo) {
+        if (isNaN(tempo) || tempo === '') {
+            console.error('Invalid tempo:', tempo);
+            return;
+        }
         const synth = new Tone.PolySynth(Tone.Synth).toDestination();
         await Tone.start()
 
-        Tone.Transport.bpm.value = this.tempo;
+        Tone.Transport.bpm.value = tempo;
 
         this.updateNotes();
 
@@ -57,15 +60,17 @@ class SoundPlayer {
         this.sequences = [sequence1, sequence2, sequence3, sequence4];
     }
 
-    stopSound() {
-        this.sequences.forEach(sequence => sequence.stop());
-        Tone.Transport.stop();
-    }
 
     setTempo(tempo) {
         console.log('setting tempo to: ' + tempo);
         this.tempo = tempo;
     }
+
+    stopSound() {
+        this.sequences.forEach(sequence => sequence.stop());
+        Tone.Transport.stop();
+    }
+
 }
 
 export default SoundPlayer;
