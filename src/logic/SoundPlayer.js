@@ -11,11 +11,15 @@ class SoundPlayer {
         this.sequences = [];
     }
 
-    updateNotes() {
-        this.notes1.push(generateNote());
-        this.notes2.push(generateNote());
-        this.notes3.push(generateNote());
-        this.notes4.push(generateNote());
+    updateNotes(key) {
+        this.notes1.push(generateNote(key));
+        console.log('notes1:', this.notes1);
+        this.notes2.push(generateNote(key));
+        console.log('notes2:', this.notes2);
+        this.notes3.push(generateNote(key));
+        console.log('notes3:', this.notes3);
+        this.notes4.push(generateNote(key));
+        console.log('notes4:', this.notes4);
 
         if (this.notes1.length > 100) this.notes1.shift();
         if (this.notes2.length > 100) this.notes2.shift();
@@ -23,7 +27,7 @@ class SoundPlayer {
         if (this.notes4.length > 100) this.notes4.shift();
     }
 
-    async playSound(tempo) {
+    async playSound(tempo, key) {
         if (isNaN(tempo) || tempo === '') {
             console.error('Invalid tempo:', tempo);
             return;
@@ -33,26 +37,34 @@ class SoundPlayer {
 
         Tone.Transport.bpm.value = tempo;
 
-        this.updateNotes();
+        this.updateNotes(key);
 
         const sequence1 = new Tone.Sequence((time, note) => {
-            synth.triggerAttackRelease(note, "2n", time);
-            this.updateNotes();
+            if (note !== "rest") {
+                synth.triggerAttackRelease(note, "2n", time);
+            }
+            this.updateNotes(key);
         }, this.notes1, "2n").start(0);
 
         const sequence2 = new Tone.Sequence((time, note) => {
-            synth.triggerAttackRelease(note, "4n", time);
-            this.updateNotes();
+            if (note !== "rest") {
+                synth.triggerAttackRelease(note, "4n", time);
+            }
+            this.updateNotes(key);
         }, this.notes2, "4n").start(0);
 
         const sequence3 = new Tone.Sequence((time, note) => {
-            synth.triggerAttackRelease(note, "8n", time);
-            this.updateNotes();
+            if (note !== "rest") {
+                synth.triggerAttackRelease(note, "8n", time);
+            }
+            this.updateNotes(key);
         }, this.notes3, "8n").start(0);
 
         const sequence4 = new Tone.Sequence((time, note) => {
-            synth.triggerAttackRelease(note, "16n", time);
-            this.updateNotes();
+            if (note !== "rest") {
+                synth.triggerAttackRelease(note, "16n", time);
+            }
+            this.updateNotes(key);
         }, this.notes4, "16n").start(0);
         
         Tone.Transport.start();
