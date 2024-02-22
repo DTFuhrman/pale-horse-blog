@@ -40,30 +40,22 @@ class SoundPlayer {
         this.updateNotes(key);
 
         const sequence1 = new Tone.Sequence((time, note) => {
-            if (note !== "rest") {
                 synth.triggerAttackRelease(note, "2n", time);
-            }
             this.updateNotes(key);
         }, this.notes1, "2n").start(0);
 
         const sequence2 = new Tone.Sequence((time, note) => {
-            if (note !== "rest") {
                 synth.triggerAttackRelease(note, "4n", time);
-            }
             this.updateNotes(key);
         }, this.notes2, "4n").start(0);
 
         const sequence3 = new Tone.Sequence((time, note) => {
-            if (note !== "rest") {
                 synth.triggerAttackRelease(note, "8n", time);
-            }
             this.updateNotes(key);
         }, this.notes3, "8n").start(0);
 
         const sequence4 = new Tone.Sequence((time, note) => {
-            if (note !== "rest") {
                 synth.triggerAttackRelease(note, "16n", time);
-            }
             this.updateNotes(key);
         }, this.notes4, "16n").start(0);
         
