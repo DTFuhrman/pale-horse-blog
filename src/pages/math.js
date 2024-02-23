@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import { graphql } from "gatsby";
 import PisanoCalculator from '../logic/PisanoCalculator';
+import Layout from "../components/layout"
+import Splash from "../components/splash"
 
-const MathPage = () => {
+const MathPage = ({ data }) => {
   const [seed1, setSeed1] = useState(0);
   const [seed2, setSeed2] = useState(0);
   const [modulo, setModulo] = useState(1);
   const [result, setResult] = useState([]);
+
+  const siteTitle = data.site.siteMetadata.title;
 
   const calculatePisanoPeriod = () => {
     const pisanoCalculator = new PisanoCalculator(BigInt(seed1), BigInt(seed2), BigInt(modulo));
@@ -38,6 +43,8 @@ const MathPage = () => {
     };
 
   return (
+    <Layout location={location} title={siteTitle}>
+    <Splash />
     <div>
       <h1>Math Page</h1>
       <p>Let's Calculate a Pisano Period.
@@ -55,7 +62,17 @@ const MathPage = () => {
       <button onClick={calculatePisanoPeriod}>Calculate Pisano Period</button>
       <p>Result: |{result.length}| - {result.join(', ')}</p>
     </div>
+    </Layout>
   );
 };
 
 export default MathPage;
+export const pageQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`

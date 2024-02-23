@@ -17,7 +17,7 @@ module.exports = {
     description: `A Gatsby based blog about learning and technology.`,
     siteUrl: `https://pale.horse/`,
     social: {
-      linkedin: 'dtfuhrman',
+      linkedin: `dtfuhrman`,
       github: `dtfuhrman`
     },
   },

@@ -1,8 +1,11 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
+import { graphql } from "gatsby";
 import SoundPlayer from '../logic/SoundPlayer'
+import Layout from "../components/layout"
+import Splash from "../components/splash"
 
-const RadioPage = () => {
+const RadioPage = ({ data }) => {
     const [key, setKey] = useState('F#m');
     const [keyInput, setKeyInput] = useState('F#m');
     const [tempo, setTempo] = useState(60);
@@ -68,6 +71,8 @@ const RadioPage = () => {
     }
 
     return (
+        <Layout location={location} title={siteTitle}>
+        <Splash />
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
             <div>
                 <label>Tempo: </label>
@@ -118,7 +123,17 @@ const RadioPage = () => {
             <button onClick={() => soundPlayer.stopSound()}>Stop Sound</button>
             <Link to="/">Go back to the homepage</Link>
         </div>
+        </Layout>
     )
 }
 
 export default RadioPage
+export const pageQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`
