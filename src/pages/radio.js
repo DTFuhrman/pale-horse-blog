@@ -3,32 +3,90 @@ import { Link } from "gatsby"
 import SoundPlayer from '../logic/SoundPlayer'
 
 const RadioPage = () => {
-    const [key, setKey] = useState('C');
+    const [key, setKey] = useState('F#m');
+    const [keyInput, setKeyInput] = useState('F#m');
     const [tempo, setTempo] = useState(60);
-    const [inputTempo, setInputTempo] = useState(60);
-    const soundPlayer = new SoundPlayer();
+    const [tempoInput, setTempoInput] = useState(85);
+    const [seed1, setSeed1] = useState(1);
+    const [seed1Input, setSeed1Input] = useState(1);
+    const [seed2, setSeed2] = useState(1);
+    const [seed2Input, setSeed2Input] = useState(1);
+    const soundPlayer = new SoundPlayer(seed1, seed2, key, tempo);
 
-    const handleTempoChange = (event) => {
-        const newTempo = Number(event.target.value);
+    const handleTempoChange = () => {
+        const newTempo = tempoInput;
         if (!isNaN(newTempo)) {
-            setInputTempo(newTempo);
+            setTempo(newTempo);
+            soundPlayer.setTempo(tempo);
         }
     }
 
-    const setNewTempo = () => {
-        setTempo(inputTempo);
+    const handleTempoInputChange = (event) => {
+        setTempoInput(Number(event.target.value));
+    }
+
+    const handleKeyChange = () => {
+        const newKey = keyInput;
+        setKey(newKey);
+        soundPlayer.setKey(key);
+    }
+
+    const handleKeyInputChange = (event) => {
+        setKeyInput(event.target.value);
+    }
+
+    const handleSeed1Change = () => {
+        const newSeed1 = seed1Input;
+        if (!isNaN(newSeed1) && newSeed1 >= 0 && newSeed1 <= 500) {
+            setSeed1(newSeed1);
+            soundPlayer.setSeed1(newSeed1);
+        } else {
+            console.log('Invalid seed1 value:', newSeed1);
+            setSeed1(1);
+            soundPlayer.setSeed1(1);
+        }
+    }
+
+    const handleSeed1InputChange = (event) => {
+        setSeed1Input(Number(event.target.value));
+    }
+
+    const handleSeed2Change = () => {
+        const newSeed2 = seed2Input;
+        if (!isNaN(newSeed2) && newSeed2 >= 0 && newSeed2 <= 500) {
+            setSeed2(newSeed2);
+            soundPlayer.setSeed2(newSeed2);
+        } else {
+            console.log('Invalid seed2 value:', newSeed2);
+            setSeed2(1);
+            soundPlayer.setSeed2(1);
+        }
+    }
+
+    const handleSeed2InputChange = (event) => {
+        setSeed2Input(Number(event.target.value));
     }
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
             <div>
                 <label>Tempo: </label>
-                <input type="number" value={tempo} onChange={event => setTempo(event.target.value)} />
-                <button onClick={() => console.log(`Current tempo: ${tempo}`)}>Log Tempo</button>
+                <input type="number" value={tempoInput} onChange={handleTempoInputChange}/>
+                <button onClick={handleTempoChange}>Set Tempo</button>
+            </div>
+            <div>
+                <label>Seed1: </label>
+                <input type="number" value={seed1Input} onChange={handleSeed1InputChange}/>
+                <button onClick={(handleSeed1Change)}>Set Seed1</button>
+            </div>
+            <div>
+                <label>Seed2: </label>
+                <input type="number" value={seed2Input} onChange={handleSeed2InputChange}/>
+                <button onClick={(handleSeed2Change)}>Set Seed2</button>
             </div>
             <div>
                 <label>Key: </label>
-                <select value={key} onChange={event => setKey(event.target.value)}>
+                <select value={keyInput} onChange={handleKeyInputChange}>
                     <option value="C">C</option>
                     <option value="C#">C#</option>
                     <option value="D">D</option>
@@ -54,7 +112,7 @@ const RadioPage = () => {
                     <option value="A#m">A#m</option>
                     <option value="Bm">Bm</option>
                 </select>
-                <button onClick={() => console.log(`Current key: ${key}`)}>Log Key</button>
+                <button onClick={(handleKeyChange)}>Log Key</button>
             </div>
             <button onClick={() => soundPlayer.playSound(tempo, key)}>Play Sound</button>
             <button onClick={() => soundPlayer.stopSound()}>Stop Sound</button>

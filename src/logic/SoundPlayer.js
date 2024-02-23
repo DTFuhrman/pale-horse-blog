@@ -1,67 +1,84 @@
 
 import * as Tone from 'tone'
-import generateNote from './NoteGenerator'
+import Notebook from './Notebook';
+
 
 class SoundPlayer {
-    constructor() {
-        this.notes1 = [];
-        this.notes2 = [];
-        this.notes3 = [];
-        this.notes4 = [];
+    constructor(seed1, seed2, key, tempo) {
+        this.seed1 = seed1
+        this.seed2 = seed2
+        this.key = key
+        this.tempo = tempo
+        this.notes1 = new Notebook(seed1, seed2, key);
+        this.notes2 = new Notebook(seed1, seed2, key);
+        this.notes3 = new Notebook(seed1, seed2, key);
+        this.notes4 = new Notebook(seed1, seed2, key);
         this.sequences = [];
     }
 
-    updateNotes(key) {
-        this.notes1.push(generateNote(key));
-        console.log('notes1:', this.notes1);
-        this.notes2.push(generateNote(key));
-        console.log('notes2:', this.notes2);
-        this.notes3.push(generateNote(key));
-        console.log('notes3:', this.notes3);
-        this.notes4.push(generateNote(key));
-        console.log('notes4:', this.notes4);
-
-        if (this.notes1.length > 100) this.notes1.shift();
-        if (this.notes2.length > 100) this.notes2.shift();
-        if (this.notes3.length > 100) this.notes3.shift();
-        if (this.notes4.length > 100) this.notes4.shift();
+    offsetVoices() {
+        let secondRest= (this.notes1.indexOf(0, this.notes.indexOf(0) + 1)+1);
+        for (let i = 0; i < secondRest*2; i++) {
+            this.notes2.notes.unshift("0");
+        }
+        for (let i = 0; i < secondRest*6; i++) {
+            this.notes3.notes.unshift("0");
+        }
+        for (let i = 0; i < secondRest*14; i++) {
+            this.notes4.notes.unshift("0");
+        }
     }
 
-    async playSound(tempo, key) {
-        if (isNaN(tempo) || tempo === '') {
-            console.error('Invalid tempo:', tempo);
+    async playSound() {
+        if (isNaN(this.tempo) || this.tempo === '') {
+            console.error('Invalid tempo:', this.tempo);
             return;
         }
-        const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+
+        const synth = new Tone.PolySynth(Tone.Synth, {
+            "attack": 0.01,
+            "attackCurve": "sine",
+            "decay": 0.1,
+            "sustain": 0.1,
+            "release": 0.5,
+        }).toDestination();
         await Tone.start()
 
-        Tone.Transport.bpm.value = tempo;
+        //set the tempo
+        Tone.Transport.bpm.value = this.tempo;
 
-        this.updateNotes(key);
+        this.notes2.setLimit(2000);
+        this.notes3.setLimit(4000);
+        this.notes4.setLimit(8000);
 
-        const sequence1 = new Tone.Sequence((time, note) => {
+        this.notes1.preloadNotes(this.seed1, this.seed2, this.key);
+        this.notes2.preloadNotes(this.seed1, this.seed2, this.key);
+        this.notes3.preloadNotes(this.seed1, this.seed2, this.key);
+        this.notes4.preloadNotes(this.seed1, this.seed2, this.key);
+
+        const voice1 = new Tone.Sequence((time, note) => {
                 synth.triggerAttackRelease(note, "2n", time);
-            this.updateNotes(key);
-        }, this.notes1, "2n").start(0);
+            this.notes1.addNote();
+        }, this.notes1.notes, "2n").start(0);
 
-        const sequence2 = new Tone.Sequence((time, note) => {
+        const voice2 = new Tone.Sequence((time, note) => {
                 synth.triggerAttackRelease(note, "4n", time);
-            this.updateNotes(key);
-        }, this.notes2, "4n").start(0);
+            this.notes2.addNote();
+        }, this.notes2.notes, "4n").start(0);
 
-        const sequence3 = new Tone.Sequence((time, note) => {
+        const voice3 = new Tone.Sequence((time, note) => {
                 synth.triggerAttackRelease(note, "8n", time);
-            this.updateNotes(key);
-        }, this.notes3, "8n").start(0);
+            this.notes3.addNote();
+        }, this.notes3.notes, "8n").start(0);
 
-        const sequence4 = new Tone.Sequence((time, note) => {
+        const voice4 = new Tone.Sequence((time, note) => {
                 synth.triggerAttackRelease(note, "16n", time);
-            this.updateNotes(key);
-        }, this.notes4, "16n").start(0);
+            this.notes4.addNote();
+        }, this.notes4.notes, "16n").start(0);
         
         Tone.Transport.start();
 
-        this.sequences = [sequence1, sequence2, sequence3, sequence4];
+        this.voices = [voice1, voice2, voice3, voice4];
     }
 
 
@@ -70,8 +87,23 @@ class SoundPlayer {
         this.tempo = tempo;
     }
 
+    setKey(key) {
+        console.log('setting key to: ' + key);
+        this.key = key;
+    }
+
+    setSeed1(seed1) {
+        console.log('setting seed1 to: ' + seed1);
+        this.seed1 = BigInt(seed1);
+    }
+
+    setSeed2(seed2) {
+        console.log('setting seed2 to: ' + seed2);
+        this.seed2 = BigInt(seed2); 
+    }
+    
     stopSound() {
-        this.sequences.forEach(sequence => sequence.stop());
+        this.voices.forEach(voice => voice.stop());
         Tone.Transport.stop();
     }
 
