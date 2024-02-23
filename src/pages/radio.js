@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useLocation } from "@reach/router";
 import { Link } from "gatsby"
 import { graphql } from "gatsby";
 import SoundPlayer from '../logic/SoundPlayer'
@@ -16,6 +17,7 @@ const RadioPage = ({ data }) => {
     const [seed2Input, setSeed2Input] = useState(1);
     const soundPlayer = new SoundPlayer(seed1, seed2, key, tempo);
 
+    const location = useLocation();
     const siteTitle = data.site.siteMetadata.title;
 
     const handleTempoChange = () => {

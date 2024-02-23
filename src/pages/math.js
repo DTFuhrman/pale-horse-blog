@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "@reach/router";
 import { graphql } from "gatsby";
 import PisanoCalculator from '../logic/PisanoCalculator';
 import Layout from "../components/layout"
@@ -10,6 +11,7 @@ const MathPage = ({ data }) => {
   const [modulo, setModulo] = useState(1);
   const [result, setResult] = useState([]);
 
+  const location = useLocation();
   const siteTitle = data.site.siteMetadata.title;
 
   const calculatePisanoPeriod = () => {
