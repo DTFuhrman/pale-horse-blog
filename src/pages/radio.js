@@ -17,10 +17,7 @@ const RadioPage = ({ data }) => {
     const [seed2Input, setSeed2Input] = useState(1);
     const soundPlayer = new SoundPlayer(seed1, seed2, key, tempo);
 
-<<<<<<< HEAD
-=======
     const location = useLocation();
->>>>>>> 8f7a4257d5119418f88a90c523cd8a4fe4b0424f
     const siteTitle = data.site.siteMetadata.title;
 
     const handleTempoChange = () => {
