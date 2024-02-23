@@ -20,25 +20,25 @@ const MathPage = ({ data }) => {
 
   const handleSeed1Change = (event) => {
     if (event.target.value > 500) {
-      setSeed1(event.target.value = 500);
+      setSeed1(BigInt(500));
     } else {
-        setSeed1(event.target.value);
+        setSeed1(BigInt(event.target.value));
         }
     };
 
   const handleSeed2Change = (event) => {
     if (event.target.value > 500) {
-      setSeed2(event.target.value = 500);
+      setSeed2(BigInt(500));
     } else {
-        setSeed2(event.target.value);
+        setSeed2(BigInt(event.target.value));
         }
     };
 
   const handleModuloChange = (event) => {
     if (event.target.value > 10000) {
-      setModulo(event.target.value = 10000);
+      setModulo(BigInt(10000));
     } else {
-        setModulo(event.target.value);
+        setModulo(BigInt(event.target.value));
         }
     };
 
