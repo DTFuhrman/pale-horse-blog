@@ -16,6 +16,8 @@ const RadioPage = ({ data }) => {
     const [seed2Input, setSeed2Input] = useState(1);
     const soundPlayer = new SoundPlayer(seed1, seed2, key, tempo);
 
+    const siteTitle = data.site.siteMetadata.title;
+
     const handleTempoChange = () => {
         const newTempo = tempoInput;
         if (!isNaN(newTempo)) {
@@ -73,7 +75,7 @@ const RadioPage = ({ data }) => {
     return (
         <Layout location={location} title={siteTitle}>
         <Splash />
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <div>
                 <label>Tempo: </label>
                 <input type="number" value={tempoInput} onChange={handleTempoInputChange}/>
